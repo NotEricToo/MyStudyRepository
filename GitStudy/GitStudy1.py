@@ -123,6 +123,35 @@ git push origin # push the code to new_branch
 git log --graph 
 # 查看合并的合并图（树状图）
 
+== 同时在本地和远程创建分支：
+git checkout -b new_branch origin/new_branch 
+
+
+
+========================== tag
+# 我们可以给我们的每个版本的代码打标签，然后可以使用tag 回到相应的版本
+git tag v1.0 
+# 打标签
+
+# 切换到某个版本：
+git checkout v2.0 
+
+# delete tag :
+git tag -d v1.0 
+
+# 推送标签到远程仓库：
+git push origin v2.0
+
+# 推送所有标签到远程 repository :
+git push origin --tags
+
+# delete tag :
+# Delete local tags first :
+git tag -d v1.0 
+
+git push origin :refs/tags/v1.0
+
+
 
 
 
