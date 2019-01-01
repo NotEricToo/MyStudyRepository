@@ -120,6 +120,8 @@ git push --set-upstream origin new_branch
 git checkout new_branch 
 git push origin # push the code to new_branch 
 
+git log --graph 
+# 查看合并的合并图（树状图）
 
 
 
