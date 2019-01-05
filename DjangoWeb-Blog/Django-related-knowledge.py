@@ -212,10 +212,41 @@ grant all privileges on blog_db.* to django@'%' identified by 'django' ;
 
 
 
+===========================  关于分页：
+== paginator:
+from django.core.paginator import Paginator,InvalidPage,EmptyPage,PageNotAnInteger
+
+article_list = Article.objects.all()
+paginator = Paginator(article_list,10)
+try:
+	page = request.GET.get('page',1)
+	article_list = paginator.page(page)
+except (EmptyPage,InvalidPage,PageNotAnInteger) :
+	article_list = paginator.page(1)
+	
 
 
 
 
+<div id = "xxx">
+	<ul id="">
+	{% if article_list.has_previous %}
+		<li class="" ><a href="?page={{article_list.previous_page_number}}">&laquo;上一页</a></li>
+	{% else %}
+		<li class="">&laquo;上一页</li>
+	{% endif %}
+	<li class="active">{{ article_list.number }}/{{ article_list.paginator.num_pages }}</li>
+	{% if article_list.has_next %}
+		<li class="" ><a href="?page={{article_list.next_page_number}}">&laquo;下一页</a></li>
+	{% else %}
+		<li class="">&laquo;下一页</li>
+	{% endif %}
+	</ul>
+	
+</div>
+		
+	
+	
 
 
 	

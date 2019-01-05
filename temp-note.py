@@ -13,10 +13,14 @@ user foreign key study :
 
 分页
 	article paging 
-	
+		# finished
+		
 	comment paging
 		1级comment 分页
 		2级comment 分页0
+	
+Ajax:
+	Ajax 实现点赞功能
 	
 article content :
 	富文本编辑器的使用：
