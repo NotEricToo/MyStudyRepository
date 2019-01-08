@@ -247,7 +247,21 @@ except (EmptyPage,InvalidPage,PageNotAnInteger) :
 		
 	
 	
-
+=========================== admin 管理页面，如何显示多列：
+In admin.py :
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+	# Use below variable to set columns in admin page.
+	list_display = ('id','atc_topic','atc_desc','click_count','like_count',)
+    fieldsets = (
+        ('Article', {
+            'fields': ('atc_topic','atc_desc', 'atc_content', )
+        }),
+        ('Time', {
+            'classes': ('readonly',),
+            'fields': ('create_time', 'update_time',)
+        }),
+    )
 
 	
 	

@@ -119,7 +119,10 @@ var AjaxUtil = {
 		var url = ajaxObj.options.url;
 
 		if("GET" == method.toUpperCase()){
-			url = url + "?" + formatParams ; 
+			if (formatParams!=null){
+				url = url + "?" + formatParams ;
+			}  
+			 
 		}
 
 		// 建立连接
