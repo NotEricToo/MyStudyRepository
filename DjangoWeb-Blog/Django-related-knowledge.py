@@ -283,3 +283,5 @@ user = authenticate(username=username,password=password)
 if user is not None:
     pass
 
+
+== register 
