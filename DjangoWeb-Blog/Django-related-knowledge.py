@@ -266,3 +266,20 @@ class ArticleAdmin(admin.ModelAdmin):
 	
 	
 
+=========================== password :
+== validate the password : 
+from django.contrib.auth.hashers import make_password
+
+lf = LoginForm()
+# encrypt the password
+password=make_password(lf.cleaned_data['password'])
+
+
+== login method from django :
+from django.contrib.auth import logout,login,authenticate
+
+login(request,user)
+user = authenticate(username=username,password=password)
+if user is not None:
+    pass
+
