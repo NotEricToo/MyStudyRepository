@@ -152,12 +152,20 @@ git tag -d v1.0
 git push origin :refs/tags/v1.0
 
 
+==== ========================
+When we want to push our project to Git, we need to :
+cd project_folder.(e.g. HelloWorld)
+git init 
+
+== In github.com , create our project repository with our project name (HelloWorld) :
+git remote add origin git@github.com:NotEricToo/HelloWorld.git 
+
+== Then we need to pull the origin files to local :
+git pull origin master --allow-unrelated-histories 
 
 
-
-
-
-
+== After this step, we can push our project to Git:
+git push origin master 
 
 
 

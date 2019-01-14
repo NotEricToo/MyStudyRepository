@@ -340,6 +340,16 @@ CONFIG_DEFAULTS={
 	'JQUERY_URL':'//cdn.bootcss.com/jquery/2.1.4/jquery.min.js',
 }
 
+urls.py: 
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+
+        # For django versions before 2.0:
+        # url(r'^__debug__/', include(debug_toolbar.urls)),
+
+    ] + urlpatterns
 
 
 ===================== The deployment of the cource in the vedio :

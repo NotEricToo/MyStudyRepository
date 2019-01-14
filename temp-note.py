@@ -24,10 +24,7 @@ Ajax:
 	Ajax 实现点赞功能
 	# finished 
 	
-article content :
-	富文本编辑器的使用
-	files upload 
-	
+
 user login 
 	# finished
 user register
@@ -35,7 +32,17 @@ user register
 	2 form to input reg info 
 	3 validate the form from reg page
 	4 if validate is true and this user not exists, create this user and return to the original url 
+	# finished
 
+comment page develop :
+	username can get the value automatically
+	# finished
+
+article content :
+	富文本编辑器的使用
+	files upload 
+	
+	
 首页其他页面的开发：
 	Category page
 	Contact page

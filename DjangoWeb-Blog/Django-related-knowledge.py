@@ -285,3 +285,75 @@ if user is not None:
 
 
 == register 
+
+=== 关于 ajax 的使用：
+
+$.ajax({
+    url:"{% url 'validate_login' %}",
+    method:"POST",
+    data:{'email':$('#login_email').val(),'password':$('#login_password').val(),'referer_url':$('#referer_url').val()},
+    type:"json",
+    success:function(callback){
+        # json 数据返回，需要调用 var data = $.parseJSON(callback) 把 数据转换成json 数据
+        var data = $.parseJSON(callback)
+        if (data.lg_flag == 1){
+            window.location.href =data.referer_url
+        }else{
+            alert(data.errormsg)
+        }
+    },
+})
+
+
+======================= 富文本编辑器：
+种类：
+    ckeditor, ueditor, kindeditor, tinymce .. 
+
+== kindeditor:
+    download kindeditor :
+
+unzip the zip file, and copy them to /static/js/ directory :
+
+config the admin.py:
+    
+class Media:
+    js = (
+        '/static/js/kindeditor-4.1.10/kindeditor-min.js',
+        '/static/js/kindeditor-4.1.10/lang/zh_CN.js',
+        '/static/js/kindeditor-4.1.10/lang/config.js',
+        )
+
+config.js:
+KindEditor.ready(function(K)){
+    K.create('textarea[name=xxx]',{
+        width:500,
+        heigth:500,
+        })
+}
+
+== file upload setup:
+in vedio django project blog 10 :
+
+
+====================== files upload :
+settings.py :
+MEDIA_URL="/uploads/"
+MEDIA_ROOT = os.path.join(BASE_DIR,'uploads') 
+
+urls.py :
+url(r"^uploads/(?P<path>.*)$","django.views.static.serve",{"document_root":settings.MEDIA_ROOT})
+
+models.py :
+xxx = models.ImageField(upload_to='xxx/xxx/',default='xxx/xx/x',max_length=200,blank=True)
+
+
+== For django + pycharm + debug :
+Run -> Edit configurations -> Python -> + ->
+Name : mydebug
+Script path : E:\Study\python\workspace\blog_project\manage.py
+Parameters: runserver
+
+ 
+
+
+
