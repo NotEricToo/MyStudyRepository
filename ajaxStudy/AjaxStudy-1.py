@@ -227,3 +227,33 @@ jsonStr = json.dumps(dict)
 	
 
 
+==================== 新学的ajx 数据提交及返回：
+== js 中使用 ajax 进行数据验证：
+$.post('url',data,callback_function(data,status){})
+$.post('{% url 'test' %}',{"userid":userid},callback_function(data){
+	if(data.status == 'error'){
+		xxxx
+	}
+
+})
+
+
+views.py :
+from django.http import JsonResponse
+
+def test(request):
+	# 这里对应的是 js 里面的callback ： 
+	return JsonResponse({'result':'ok','status':'success'})  
+	return JsonResponse({'result':'错误','status':'error'})
+
+
+
+
+
+
+
+
+
+
+
+
