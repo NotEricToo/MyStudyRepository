@@ -11,6 +11,7 @@ $(document).ready(function()
 	# focus : 获得焦点
 	# blur ： 失去焦点
 	# change ： 改变
+	# click ： 点击
 	doc.addEventListener('focus',function(){
 		# 在这里可以是用 this 可以表示 doc 
 		value = doc.value
@@ -55,4 +56,13 @@ $(document).ready(function(){
 
 		},100)
 })
+
+
+== js 中使用 ajax 进行数据验证：
+$.post('url',data,callback_function(data,status){})
+$.post('{% url 'test' %}',{"userid":userid},callback_function(data,status){
+
+
+	})
+
 
