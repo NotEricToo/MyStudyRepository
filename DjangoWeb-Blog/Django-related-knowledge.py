@@ -22,6 +22,23 @@
 	pip install django 
 	
 	
+===================== pycharm related :
+create a django project :
+Base interpreter :
+blog_projectenv\Scripts\python.exe 
+
+Location : 
+select a workspace location and add the project name behind the location :
+E:\Study\python\workspace\MyGit\shop_project
+
+More Settings:
+Application name:
+shop 
+
+
+==
+
+
 	
 ======================== staticfiles setting ... 
 == files transfer :
@@ -209,7 +226,7 @@ create user 'django'@'%' identified by 'django';
 create database blog_db charset=utf8;
 
 grant all privileges on blog_db.* to django@'%' identified by 'django' ;
-
+grant all privileges on shop.* to django@'%' identified by 'django' ;
 
 
 ===========================  关于分页：
@@ -353,7 +370,80 @@ Name : mydebug
 Script path : E:\Study\python\workspace\blog_project\manage.py
 Parameters: runserver
 
- 
+== My study of upload:
+
+url.py:
+from django.conf.urls.static import static
+
+urlpatterns=[]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+models.py :
+ xxx = models.ImageField(upload_to='%Y/%m/%d/',default='xxx/xx/x',max_length=200,blank=True)
+ # upload_to='xxx/xxx/' 表示会存到 MEDIA_ROOT/%Y/%m/%d/ 下
+
+settings.py:
+# Media_ROOT 被用在models.py 
+MEDIA_ROOT=os.path.join(STATIC_URL,'media')
+# MEDIA_URL 用在 html 中
+MEDIA_URL='/media/'
+
+html:
+<img src="{% static single_article.img.url %}"/>
+
+=================== django login token :
+models.py:
+userToken = models.Charfield(max_length=50)
+
+views.py:
+import random 
+usertoken = time.tim() + random.randrange(1,1000000)
+usertoken = str(usertoken)
+
+
+== files upload :
+from django.conf import settings 
+file = request.FILES["imgName"]
+filepath = os.path.join(settings.MEDIA_ROOT,filename)
+# 这里的  filename 可以自己命名，可以根据account 或者其他进行命名 
+# 文件写入 ： 
+with open(filepath,'wb') as fp :
+    for data in file.chunks():
+        fp.write(data)
+
+
+==== logout:
+from django.contrib.auth import logout
+def logout(request):
+    logout(request)
+    return redirect("homepage")
+
+
+============== 给 button 添加值value：
+<button class="xxx" ga="{{item.xxx}}"> button</button>
+
+获取ga值 ：
+var bt = getElementByClassName("xxx")
+ga = bt.getAttribute("ga")
+
+
+=================== 通过管理类修改 models 原有的函数：
+class CartManager(models.Manager):
+    def get_queryset(self):
+        return super(CartManager,self).get_queryset().filter(isDelete=False)
+
+class Cart(models.Model):
+
+
+    objects = CartManager()
+
+
+
+
+
+
+
+
+
 
 
 

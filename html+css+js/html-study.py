@@ -30,3 +30,15 @@ html:
 	<li></li>
 </ul>
 </aside>
+
+# 引入 css 和 js 文件:
+# css: 
+<link rel="stylesheet" type="text/css" href="xxx.css" />
+
+# js :
+<script type="text/javascript" charset="utf-8" src="xxx.js" ></script>
+
+
+== 删除节点:
+var li = document.getElementById("xxx")
+li.parentNode.removeChild(li)

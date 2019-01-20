@@ -125,6 +125,15 @@ urls.py :
 url(r'^login/$','login'), 
 	
 
+== 关于 forms 的错误处理：
+	f = LoginForm(request.POST)
+	render(request,"xxx.html",{"error":f.errors})
+
+in html :
+	{% if errors.username.0 %}
+		{{errors.username.0}}
+	{% endif %}
+
 	
 # ==============================3rd Permission extend ==========================================	
 #	Need to familar the permission system via the register method .	

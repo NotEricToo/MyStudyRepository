@@ -49,9 +49,46 @@ article content :
 	
 memcached 的使用，首页的优化
 
+
 压力测试.
 	according to the course memcached, we can use some tool to do some pressure test (压力测试)
 
 
 
 	
+=============== bootstrap study 
+http://www.bootcss.com/
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

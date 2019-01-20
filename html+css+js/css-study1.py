@@ -77,3 +77,13 @@ pagination:'.swiper-pagination'
 border-bottom:0.04rem solid #e0e0e0
 z-index:1  # 让它一直在最上面显示
 
+
+# Span 变成圆形：
+border-radius: 2em 1em 4em 3em;
+等价于分别设置了四个角：
+border-top-radius: 2em;
+border-right-radius:1em;
+border-bottom-radius: 4em;
+border-left-radius:3em;
+当然单位上也是可以选择的常用单位：em、px、 %
+注：1em=16px
