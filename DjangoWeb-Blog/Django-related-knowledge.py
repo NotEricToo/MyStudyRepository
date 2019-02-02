@@ -270,6 +270,7 @@ In admin.py :
 class ArticleAdmin(admin.ModelAdmin):
 	# Use below variable to set columns in admin page.
 	list_display = ('id','atc_topic','atc_desc','click_count','like_count',)
+    list_display_links =  ('id', 'atc_topic', 'click_count', 'like_count','create_time')
     fieldsets = (
         ('Article', {
             'fields': ('atc_topic','atc_desc', 'atc_content', )
@@ -280,8 +281,56 @@ class ArticleAdmin(admin.ModelAdmin):
         }),
     )
 
-	
-	
+== 另一个例子：
+'''
+如果想在外键显示时，显示外键的其他列，需要在 主的一端配置：
+python2
+def __unicode__(self):  # __str__ on Python 3
+    return self.xxxField
+python3
+def __str__(self):  # __str__ on Python 3
+    return self.xxxField
+'''
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+
+    list_display = list_display_links = ('prod_id', 'prod_name','prod_price','prod_num','prod_brand','prod_cg','prod_sales','is_delete')
+    fieldsets = (
+        ('Product Info', {
+            'fields': ( 'prod_name','prod_longname','prod_cg','prod_price','prod_num','prod_brand','prod_cg','prod_sales')
+        }),
+        ('图片信息', {
+            'fields': ('prod_img','prod_rollimg1','prod_rollimg2','prod_rollimg3','prod_rollimg4')
+        }),
+        ('其他信息', {
+            'fields': ('prod_desc',)
+        }),
+        ('是否已删除', {
+            'fields': ( 'is_delete',)
+        }),
+    )
+    #ordering设置默认排序字段，负号表示降序排序
+    ordering = ('-publish_time',)
+
+    #list_editable 设置默认可编辑字段
+    list_editable = ['machine_room_id', 'temperature']
+  
+    #fk_fields 设置显示外键字段
+    fk_fields = ('machine_room_id',)
+
+    #筛选器
+    list_filter =('trouble', 'go_time', 'act_man__user_name', 'machine_room_id__machine_room_name') #过滤器
+    search_fields =('server', 'net', 'mark') #搜索字段
+    date_hierarchy = 'go_time'    # 详细时间分层筛选　
+
+    #list_per_page设置每页显示多少条记录，默认是100条
+    list_per_page = 50
+
+    # 只读 字段
+     readonly_fields = ('machine_ip', 'status', 'user', 'machine_model', 'cache',
+                       'cpu', 'hard_disk', 'machine_os', 'idc', 'machine_group')
 
 =========================== password :
 == validate the password : 
@@ -390,6 +439,10 @@ MEDIA_URL='/media/'
 html:
 <img src="{% static single_article.img.url %}"/>
 
+== 如果使用自己定义的form ：
+注意的是想要获取文件要在，form表单注明enctype="multipart/form-data"
+
+
 =================== django login token :
 models.py:
 userToken = models.Charfield(max_length=50)
@@ -437,6 +490,18 @@ class Cart(models.Model):
     objects = CartManager()
 
 
+================= models 重写 create 方法
+models.py :
+
+@classmethod
+def create(cls, remote_addr,http_user_agent,http_referer):
+    track = cls(remote_addr = remote_addr,http_user_agent=http_user_agent,http_referer=http_referer )
+    return track
+
+
+
+=================== uuid 的使用：
+uid = uuid.uuid4().hex
 
 
 
@@ -444,6 +509,45 @@ class Cart(models.Model):
 
 
 
+============================ 网页重定向
+redirect : 
+
+from django.urls import reverse
+
+return redirect(reverse("mine"))
+
+
+=============================== 密码验证：
+from django.contrib.auth.hashers import make_password,check_password
+check_password(明文，密文)
 
 
 
+
+
+==== 表已存在，进行migrate ：
+migrate appname --fake 
+
+
+
+=============== django 重写 fileupload 的文件命名
+def upload_to(instance,filename):
+    filename = datetime.datetime.now().strftime('%Y') + "/" + datetime.datetime.now().strftime('%m') + "/" + \
+                datetime.datetime.now().strftime('%d')  + "/" + uuid.uuid4().hex + ".jpg"
+    return filename
+
+
+img = models.ImageField(upload_to=upload_to,verbose_name="首页滚轮图片")
+
+
+===================== urls.py settings in Django 2.0 
+from django.urls import include, path
+
+urlpatterns = [
+    path('index/', views.index, name='main-view'),
+    path('bio/<username>/', views.bio, name='bio'),
+    path('articles/<slug:title>/', views.article, name='article-detail'),
+    path('articles/<slug:title>/<int:section>/', views.section, name='article-section'),
+    path('weblog/', include('blog.urls')),
+    ...
+]

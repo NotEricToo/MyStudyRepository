@@ -247,13 +247,35 @@ def test(request):
 	return JsonResponse({'result':'错误','status':'error'})
 
 
+====================== ajax 动态改变页面：
+== 
+$.get("/cglist/",{"sub_id":sub},function(data){
+    if(data.length>0){
+
+        $("#cg-prodlist").html(data)
+    }
+
+})
+
+
+views.py : 
+def get_cg_prod_list(request):
+
+    sub = request.GET.get("sub_id")
+    try:
+        prodlist = Product.objects.filter(prod_cg__id=sub)
+        return render(request, 'shop/function/category_listprod.html', {"prodlist": prodlist})
+    except Product.DoesNotExist:
+        pass
+
+
+html :
+分开2个html， 一个是总的html 
+另外一个html，只有需要替换的id对应的div里面的内容
 
 
 
 
+============= 获取来源页面：
 
-
-
-
-
-
+http_referer = request.META.get('HTTP_REFERER', 'Not defined')

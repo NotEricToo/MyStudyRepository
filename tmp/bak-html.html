@@ -16,3 +16,184 @@
 </div>
 
 <hr data-am-widget="divider" style="" class="am-divider am-divider-default am-cf my-linecss"/>
+
+
+
+ <div>
+    <span class="list-product-price-span">￥89.00</span>
+</div>
+<hr data-am-widget="divider" style="" class="am-divider am-divider-default am-cf"/>
+<ol class="am-avg-sm-3 product-list-share">
+	<li><a href="#"><img src="{% static 'shop/default/icon1.png' %}" class="am-img-responsive" /></a></li>
+    <li><a href="#"><img src="{% static 'shop/default/icon2.png' %}" class="am-img-responsive" /></a></li>
+    <li><a href="#"><img src="{% static 'shop/default/icon3.png' %}" class="am-img-responsive" /></a></li>
+</ol>
+
+
+
+<ul class="my-shop-product-list">
+            <!-- begin prod info -->
+           {% for prod in prodlist %}
+            <li class="prod-list-cg-li">
+
+                <div class=" prod-list-cg-div">
+
+                    <div class="imgpanel"><a href="#"><img src="{{ prod.prod_img.url }}" class="am-img-responsive cg-list-img" /></a></div>
+
+                        <div class="infopanel">
+                             <ul>
+                                <li><a href="#">{{ prod.prod_name }}</a></li>
+                                 <li><span>{{ prod.prod_brand }}</span></li>
+                                <li>价格：<span class="red2 bold">{{ prod.prod_price }}</span> 元</li>
+                                <li>
+{#                                    <span class="cg-list-icon "><span class="am-icon-shopping-cart"></span>:</span>#}
+{#                                    <span class="cg-list-icon "><span class="am-icon-angle-left"></span></span>#}
+{#                                    <span class="cg-list-icon ">0</span>#}
+{#                                    <span class="cg-list-icon "><span class="am-icon-angle-right"></span></span>#}
+                                     <button type="button" class="am-btn am-btn-default cg-list-icon" style="float:left" onClick="subtractQty();" ><i class="am-icon-minus"></i></button>
+                                     <span class="cg-list-icon">0</span>
+                                     <button type="button" class="am-btn am-btn-default cg-list-icon" style="float:left" onClick="addQty();"><i class="am-icon-plus"></i></button>
+                                </li>
+                             </ul>
+                        </div>
+
+                </div>
+
+            </li>
+           {% endfor %}
+            <!-- end prod info-->
+        </ul>
+
+prod.addEventListener("click",function () {
+            gavalue = this.getAttribute("ga")
+            // alert(gavalue)
+             // 参数传递 1 ， 表示 增加1
+
+            // begin ajax
+            // $.ajax({
+            //     url:"/updateToCart/1/",
+            //     data:{"prodid":gavalue},
+            //     type:"json",
+            //     method:"get",
+            //     async:true,
+            //     success:function(data){
+            //         if(data.status=="success"){
+            //             // 成功， update 分类页面上的产品数字
+            //             var num = data.num
+            //             var numspan = document.getElementById("cgnumbtn" + gavalue)
+            //             numspan.innerHTML = num
+            //         }
+            //
+            //         // 未登录处理
+            //         if(data.status == "nologin"){
+            //             window.location.href="/login/"
+            //         }
+            //         // 没有库存了
+            //         if(data.status =="maxnum"){
+            //             alert("没有库存了！")
+            //         }
+            //     }
+            // })
+
+            // begin get
+            $.get("/updateToCart/1/",{"prodid":gavalue},function(data){
+                if(data.status=="success"){
+                    // 成功， update 分类页面上的产品数字
+                    var num = data.num
+                    var numspan = document.getElementById("cgnumbtn" + gavalue)
+                    numspan.innerHTML = num
+                }
+
+                // 未登录处理
+                if(data.status == "nologin"){
+                    window.location.href="/login/"
+                }
+                // 没有库存了
+                if(data.status =="maxnum"){
+                    alert("没有库存了！")
+                }
+            })
+            // end get
+
+        })
+
+ $subid.on("click",function () {
+            var sub = this.getAttribute("ga")
+            $.ajax({
+                url:"/cglist/",
+                data:{"sub_id":sub},
+                method:"get",
+                async:true,
+                success:function(data){
+                    if(data.length>0){
+
+                        $("#cg-prodlist").html(data)
+                    }
+
+                }
+            })
+        })
+
+// $subid.click(function () {
+        //     var sub = this.getAttribute("ga")
+        //     $.ajax({
+        //         url:"/cglist/",
+        //         data:{"sub_id":sub},
+        //         method:"get",
+        //         async:false,
+        //         success:function(data){
+        //             if(data.length>0){
+        //
+        //                 $("#cg-prodlist").html(data)
+        //             }
+        //
+        //         }
+        //     })
+        // })
+        //
+        // $subid.live("click",function () {
+        //     var sub = this.getAttribute("ga")
+        //     $.ajax({
+        //         url:"/cglist/",
+        //         data:{"sub_id":sub},
+        //         method:"get",
+        //         async:false,
+        //         success:function(data){
+        //             if(data.length>0){
+        //
+        //                 $("#cg-prodlist").html(data)
+        //             }
+        //
+        //         }
+        //     })
+        // })
+        // end jq
+
+        // subid.addEventListener("click",function(){
+        //     var sub = this.getAttribute("ga")
+        //
+        //     // $.get("/cglist/",{"sub_id":sub},function(data){
+        //     //     if(data.length>0){
+        //     //
+        //     //         $("#cg-prodlist").html(data)
+        //     //     }
+        //     //
+        //     // })
+        //     // end get
+        //
+        //     $.ajax({
+        //         url:"/cglist/",
+        //         data:{"sub_id":sub},
+        //         method:"get",
+        //         async:false,
+        //         success:function(data){
+        //             if(data.length>0){
+        //
+        //                 $("#cg-prodlist").html(data)
+        //             }
+        //
+        //         }
+        //     })
+        //
+        // })
+        // end click

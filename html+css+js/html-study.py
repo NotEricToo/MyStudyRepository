@@ -42,3 +42,10 @@ html:
 == 删除节点:
 var li = document.getElementById("xxx")
 li.parentNode.removeChild(li)
+
+
+
+
+
+
+

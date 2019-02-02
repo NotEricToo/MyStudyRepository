@@ -42,6 +42,19 @@ $.ajax({
     },
 })
 
+view:
+使用 JsonResponse
+
+ajax:
+// 验证是否存在
+$.get('/reg_username/',{'username':uname},function(data){
+    // var data = $.parseJSON(callback)
+    // alert(data.status)
+    if(data.status=="error"){
+        unameexists.style.display = 'block'
+    }
+})
+
 
 ================= 使用屏幕宽度 10rem :
 # 设置完了以下js， 可以在css中使用 width or height : 2.5rem 
@@ -66,3 +79,47 @@ $.post('{% url 'test' %}',{"userid":userid},callback_function(data,status){
 	})
 
 
+
+
+==================== 通过 html 的 class 对每个循环的div 或者其他标签添加事件 ：
+
+html : 
+ <dt><a class="red2 am-cf getid" id="{{ sub.id }}" ga="{{ sub.id }}">{{ sub.cg_name }}</a></dt>
+
+ js: 
+ 
+ var ids = document.getElementsByClassName("getid")
+
+    for (var i = 0 ; i<ids.length;i++){
+        subid = ids[i]
+
+        subid.addEventListener("click",function(){
+            var pid = this.getAttribute("ga")
+            # 这里 只能使用 this， 直接使用 subid 没有效果
+            alert(pid)
+        })
+    }
+
+
+============= javascript 判断字符串是否为空
+password.replace(/\s+/g,"") == "" 
+
+
+== 获取 某个字符的位置：
+str.indexOf("aaa")
+如果没有，则返回 -1
+
+
+==============Dom 与 Jquery 之间的转换：
+Dom 转 JQ：
+var $jqDOm = $("#jqdom")
+var domDiv =  $jqDOm[0] # 取第一个，就是需要的 dom 元素
+
+JQ 转 DOM ：
+var dom = document.getElementId("aaa") 
+var $newJQ = $(dom) # 直接把 dom 放进去
+
+
+
+
+ 
