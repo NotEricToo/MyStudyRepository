@@ -165,7 +165,7 @@ w.pack()
 "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
 "selector": "source.python"
 }
-  6 update the path of above to the python path you install 
+  6 update the path of above to the python path you installed 
   7 menu->tools->build system->Python
   8 finished   -- You can use ctrl+B to run your python program 
 

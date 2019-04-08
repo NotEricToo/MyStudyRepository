@@ -637,8 +637,17 @@ service iptables save
 	
 	
 	
-	
+	=== mysql in Mac book 
+url :
+	dev.mysql.com/downloads/mysql/
 
+download the mysql.dmp 
+
+启动完成后,打开终端
+
+　　alias mysql=/usr/local/mysql/bin/mysql
+
+　　alias mysqladmin=/usr/local/mysql/bin/mysqladmin
 	
 
 

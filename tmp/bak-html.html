@@ -197,3 +197,44 @@ prod.addEventListener("click",function () {
         //
         // })
         // end click
+
+
+
+
+    var nowpage = document.getElementById("orderpagenum") // 当前页数 DOM
+    var totalpage = document.getElementById("orderpagetotalnum") // 总页数 DOM
+
+    var nowpagenum = nowpage.getAttribute("ga") // 当前页数
+    var totalpagenum = totalpage.getAttribute("ga") // 总页数
+
+    var prepage = document.getElementById("orderpreviouspage") // 上一页按钮 DOM
+    var nextpage = document.getElementById("ordernextpage") // 下一页按钮 DOM
+
+    var orderlistpage = document.getElementById("orderlistpage") // 列表的div DOM
+
+    prepage.addEventListener("click",function () {
+        alert(11)
+        if(nowpagenum <= 1 ){
+            return false
+        }
+        // indicator == 1 表示下一页
+        $.get("/orderpage/"+nowpagenum+"/1/",function (data) {
+            orderlistpage.innerHTML = data
+
+
+        })
+
+
+    })
+
+    nextpage.addEventListener("click",function () {
+        if(nowpagenum>=totalpagenum){
+            return false
+        }
+
+        // indicator == 2 表示下一页
+        $.get("/orderpage/"+nowpagenum+"/2/",function(data) {
+            orderlistpage.innerHTML = data
+
+        })
+    })
